@@ -59,7 +59,11 @@ Yes. It validates required fields and shows an admin-facing error if a required 
 
 == Screenshots ==
 
-1. Example browser validation message at checkout (optional)
+1. Example browser validation message at checkout.
+2. Required PMPro custom user field with native HTML5 attributes.
+3. Member Profile Edit shows a clear error when a required field is missing.
+4. Custom validation message via filter.
+5. Localized validation message.
 
 == Changelog ==
 
