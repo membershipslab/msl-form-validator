@@ -1,0 +1,37 @@
+# Files and directories to exclude from the WordPress.org release
+# See: https://github.com/10up/action-wordpress-plugin-deploy#exclusions
+
+# VCS
+.git
+.gitignore
+.gitattributes
+.github/
+
+# WordPress.org assets (handled separately by assets workflow)
+.wordpress-org/
+
+# Build / tooling / docs
+node_modules/
+vendor/
+composer.lock
+composer.json
+package.json
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+vite.config.*
+webpack.*
+rollup.*
+.eslint*
+.prettier*
+.stylelint*
+phpcs.xml*
+phpunit.xml*
+.DS_Store
+*.log
+
+# Local documentation and examples
+README.md
+CHANGELOG.md
+CONTRIBUTING.md
+docs/

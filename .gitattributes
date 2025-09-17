@@ -1,0 +1,29 @@
+# Normalize line endings
+* text=auto eol=lf
+
+# Explicit text files
+*.php text
+*.md text
+*.txt text
+*.po text
+*.pot text
+*.js text
+*.css text
+
+# Binary assets
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.svg text
+
+# Exclude development files from source exports (e.g., GitHub auto-generated archives)
+/.github export-ignore
+/.wordpress-org export-ignore
+/docs export-ignore
+/tests export-ignore
+/composer.json export-ignore
+/composer.lock export-ignore
+/phpcs.xml.dist export-ignore
+/.distignore export-ignore
+/CONTRIBUTING.md export-ignore

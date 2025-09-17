@@ -1,0 +1,61 @@
+# Copyright (C) 2025 Memberships Lab
+# This file is distributed under the GPL2.
+msgid ""
+msgstr ""
+"Project-Id-Version: HTML Form Validator for PMPro 0.0.3alpha\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/msl-form-"
+"validator\n"
+"POT-Creation-Date: 2025-09-16T16:10:36+00:00\n"
+"PO-Revision-Date: 2025-09-16T15:39:28+00:00\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: msl-form-validator\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Plugin Name of the plugin
+#: msl-form-validator.php
+msgid "HTML Form Validator for PMPro"
+msgstr "HTML Form Validator for PMPro"
+
+#. Plugin URI of the plugin
+#: msl-form-validator.php
+msgid "http://membershipslab.com/plugins/msl-form-validator/"
+msgstr "http://membershipslab.com/plugins/msl-form-validator/"
+
+#. Description of the plugin
+#: msl-form-validator.php
+msgid "Add HTML form validation for PMPro custom user fields."
+msgstr "Add HTML form validation for PMPro custom user fields."
+
+#. Author of the plugin
+#: msl-form-validator.php
+msgid "Memberships Lab"
+msgstr "Memberships Lab"
+
+#. Author URI of the plugin
+#: msl-form-validator.php
+msgid "http://membershipslab.com"
+msgstr "http://membershipslab.com"
+
+#: msl-form-validator.php:48
+msgid "this field"
+msgstr "this field"
+
+#. translators: %s: field label
+#: msl-form-validator.php:50 msl-form-validator.php:138
+#, php-format
+msgid "Please fill out the %s required field."
+msgstr "Please fill out the %s required field."
+
+#, php-format
+#~ msgid "Kindly conmplete the required %s field."
+#~ msgstr "Kindly conmplete the required %s field."
+
+#, php-format
+#~ msgid "You  forgot to fill in the required %s field."
+#~ msgstr "You  forgot to fill in the required %s field."

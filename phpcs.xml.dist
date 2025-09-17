@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ruleset name="HTML Form Validator for PMPro">
+    <description>Apply WordPress Coding Standards to the plugin codebase.</description>
+
+    <!-- Paths -->
+    <file>./</file>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/.github/*</exclude-pattern>
+    <exclude-pattern>*/.wordpress-org/*</exclude-pattern>
+    <exclude-pattern>*/languages/*</exclude-pattern>
+    <exclude-pattern>*/docs/*</exclude-pattern>
+    <exclude-pattern>*/tests/*</exclude-pattern>
+
+    <!-- Only scan PHP files -->
+    <arg name="extensions" value="php"/>
+
+    <!-- Target PHP version (7.4) -->
+    <config name="php_version" value="70400"/>
+
+    <!-- Base rulesets -->
+    <rule ref="WordPress-Extra"/>
+    <rule ref="WordPress-Docs"/>
+
+    <!-- Ensure translations use the correct text domain -->
+    <rule ref="WordPress.WP.I18n">
+        <properties>
+            <property name="text_domain" type="array" value="msl-form-validator"/>
+        </properties>
+    </rule>
+</ruleset>
