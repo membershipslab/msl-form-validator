@@ -7,7 +7,7 @@ on:
     inputs:
       tag:
         description: Tag to build (e.g., v0.1.0)
-        required: true
+        required: false
         type: string
 
 permissions:
@@ -23,7 +23,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.event_name == 'release' && github.event.release.tag_name || inputs.tag }}
+          # Use the release tag on release events; otherwise, use the provided tag if present; fallback to the current commit (main HEAD).
+          ref: ${{ github.event_name == 'release' && github.event.release.tag_name || (inputs.tag != '' && inputs.tag || github.sha) }}
 
       - name: Determine version from plugin header
         id: meta
@@ -40,6 +41,7 @@ jobs:
 
       - name: Upload zip to GitHub Release
         uses: softprops/action-gh-release@v2
+        if: ${{ github.event_name == 'release' || inputs.tag != '' }}
         with:
           tag_name: ${{ github.event_name == 'release' && github.event.release.tag_name || inputs.tag }}
           files: |
