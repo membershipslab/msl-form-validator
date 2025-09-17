@@ -13,47 +13,49 @@
  * Requires at least: 6.0
  * Tested up to: 6.8
  * Requires PHP: 7.4
+ *
+ * @package MSL_Form_Validator
  */
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 // Include plugin functions to check dependencies.
 if ( is_admin() ) {
-    include_once ABSPATH . 'wp-admin/includes/plugin.php';
+	include_once ABSPATH . 'wp-admin/includes/plugin.php';
 }
 
 /**
  * Prevent activation if Paid Memberships Pro is not active.
  */
 function msl_form_validator_activation_check() {
-    if ( ! function_exists( 'is_plugin_active' ) ) {
-        include_once ABSPATH . 'wp-admin/includes/plugin.php';
-    }
+	if ( ! function_exists( 'is_plugin_active' ) ) {
+		include_once ABSPATH . 'wp-admin/includes/plugin.php';
+	}
 
-    if ( ! is_plugin_active( 'paid-memberships-pro/paid-memberships-pro.php' ) ) {
-        // Deactivate self and show a message.
-        deactivate_plugins( plugin_basename( __FILE__ ) );
-        wp_die(
-            sprintf(
-                /* translators: 1: opening strong tag, 2: closing strong tag */
-                esc_html__( '%1$sHTML Form Validator for PMPro%2$s requires the Paid Memberships Pro plugin to be installed and active.', 'msl-form-validator' ),
-                '<strong>',
-                '</strong>'
-            ) .
-            ' ' .
-            sprintf(
-                /* translators: 1: opening anchor tag, 2: closing anchor tag */
-                esc_html__( 'Please %1$sinstall/activate Paid Memberships Pro%2$s and try again.', 'msl-form-validator' ),
-                '<a href="' . esc_url( admin_url( 'plugin-install.php?s=paid%20memberships%20pro&tab=search&type=term' ) ) . '">',
-                '</a>'
-            ),
-            esc_html__( 'Dependency missing', 'msl-form-validator' ),
-            array( 'back_link' => true )
-        );
-    }
+	if ( ! is_plugin_active( 'paid-memberships-pro/paid-memberships-pro.php' ) ) {
+		// Deactivate self and show a message.
+		deactivate_plugins( plugin_basename( __FILE__ ) );
+		wp_die(
+			sprintf(
+				/* translators: 1: opening strong tag, 2: closing strong tag */
+				esc_html__( '%1$sHTML Form Validator for PMPro%2$s requires the Paid Memberships Pro plugin to be installed and active.', 'msl-form-validator' ),
+				'<strong>',
+				'</strong>'
+			) .
+			' ' .
+			sprintf(
+				/* translators: 1: opening anchor tag, 2: closing anchor tag */
+				esc_html__( 'Please %1$sinstall/activate Paid Memberships Pro%2$s and try again.', 'msl-form-validator' ),
+				'<a href="' . esc_url( admin_url( 'plugin-install.php?s=paid%20memberships%20pro&tab=search&type=term' ) ) . '">',
+				'</a>'
+			),
+			esc_html__( 'Dependency missing', 'msl-form-validator' ),
+			array( 'back_link' => true )
+		);
+	}
 }
 register_activation_hook( __FILE__, 'msl_form_validator_activation_check' );
 
@@ -61,22 +63,22 @@ register_activation_hook( __FILE__, 'msl_form_validator_activation_check' );
  * Show admin notice if PMPro is not active (for older sites without Requires Plugins handling).
  */
 function msl_form_validator_admin_dependency_notice() {
-    if ( ! current_user_can( 'activate_plugins' ) ) {
-        return;
-    }
-    if ( function_exists( 'is_plugin_active' ) && is_plugin_active( 'paid-memberships-pro/paid-memberships-pro.php' ) ) {
-        return;
-    }
-    echo '<div class="notice notice-error"><p>' .
-        sprintf(
-            /* translators: 1: opening strong tag, 2: closing strong tag */
-            esc_html__( '%1$sHTML Form Validator for PMPro%2$s requires the Paid Memberships Pro plugin. Please install and activate it.', 'msl-form-validator' ),
-            '<strong>',
-            '</strong>'
-        ) .
-        ' ' .
-        '<a href="' . esc_url( admin_url( 'plugin-install.php?s=paid%20memberships%20pro&tab=search&type=term' ) ) . '">' . esc_html__( 'Install PMPro', 'msl-form-validator' ) . '</a>' .
-        '</p></div>';
+	if ( ! current_user_can( 'activate_plugins' ) ) {
+		return;
+	}
+	if ( function_exists( 'is_plugin_active' ) && is_plugin_active( 'paid-memberships-pro/paid-memberships-pro.php' ) ) {
+		return;
+	}
+	echo '<div class="notice notice-error"><p>' .
+		sprintf(
+			/* translators: 1: opening strong tag, 2: closing strong tag */
+			esc_html__( '%1$sHTML Form Validator for PMPro%2$s requires the Paid Memberships Pro plugin. Please install and activate it.', 'msl-form-validator' ),
+			'<strong>',
+			'</strong>'
+		) .
+		' ' .
+		'<a href="' . esc_url( admin_url( 'plugin-install.php?s=paid%20memberships%20pro&tab=search&type=term' ) ) . '">' . esc_html__( 'Install PMPro', 'msl-form-validator' ) . '</a>' .
+		'</p></div>';
 }
 
 add_action( 'admin_notices', 'msl_form_validator_admin_dependency_notice' );
@@ -85,7 +87,7 @@ add_action( 'admin_notices', 'msl_form_validator_admin_dependency_notice' );
  * Load plugin textdomain for translations.
  */
 function msl_form_validator_load_textdomain() {
-    load_plugin_textdomain( 'msl-form-validator', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+	load_plugin_textdomain( 'msl-form-validator', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
 add_action( 'plugins_loaded', 'msl_form_validator_load_textdomain' );
 
