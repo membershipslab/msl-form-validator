@@ -139,8 +139,9 @@ To add translations:
 
 ## Contributing
 
-- We use WordPress Coding Standards via PHPCS (`phpcs.xml.dist`).
-- Dev setup and commands:
+- PRs are welcome! For larger changes, please open an issue first to discuss what you’d like to change.
+- Please follow WordPress Coding Standards (WPCS) via PHPCS (`phpcs.xml.dist`).
+- Run the linters locally before submitting a PR:
 
 ```bash
 composer install
@@ -148,9 +149,11 @@ vendor/bin/phpcs -q
 vendor/bin/phpcbf -q
 ```
 
-- See `CONTRIBUTING.md` for release conventions:
+- See `CONTRIBUTING.md` for release conventions and additional guidelines.
   - GitHub releases: tag `vX.Y.Z`
   - WordPress.org deploys: tag `wporg-X.Y.Z`
+
+- Please abide by our [Code of Conduct](./CODE_OF_CONDUCT.md).
 
 ## Packaging & Releases
 
