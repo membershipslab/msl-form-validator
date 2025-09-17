@@ -150,22 +150,26 @@ function msl_pmpro_add_user_field_required_attribute( $field, $where ) {
 add_filter( 'pmpro_add_user_field', 'msl_pmpro_add_user_field_required_attribute', 10, 2 );
 
 /**
- * Check that required fields on the Member Profile Edit page was filled in.
+ * Check that required fields on the Member Profile Edit page were filled in.
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
+ *
+ * @param array      $errors Array of error messages to be shown.
+ * @param mixed|null $update Whether this is a user update.
+ * @param WP_User    $user   The user object being edited.
  */
 function msl_pmpro_check_required_profile_fields( &$errors, $update = null, &$user = null ) {
 
 	global $pmpro_user_fields;
 
 	$default_required_fields = array(
-		'first_name'   => array( __( 'First Name', 'paid_memberships_pro' ) ),
-		'last_name'    => array( __( 'Last Name', 'paid_memberships_pro' ) ),
-		'display_name' => array( __( 'Display Name', 'paid_memberships_pro' ) ),
-		'user_email'   => array( __( 'Email', 'paid_memberships_pro' ) ),
+		'first_name'   => array( __( 'First Name', 'msl-form-validator' ) ),
+		'last_name'    => array( __( 'Last Name', 'msl-form-validator' ) ),
+		'display_name' => array( __( 'Display Name', 'msl-form-validator' ) ),
+		'user_email'   => array( __( 'Email', 'msl-form-validator' ) ),
 	);
 
 	$required_user_fields = array();
@@ -186,7 +190,7 @@ function msl_pmpro_check_required_profile_fields( &$errors, $update = null, &$us
 		if ( ! empty( $field[1] ) ) {
 			$required = false;
 			foreach ( $user_levels as $level ) {
-				if ( in_array( $level->id, $field[1] ) ) {
+				if ( in_array( $level->id, $field[1], true ) ) {
 					$required = true;
 				}
 			}
@@ -201,11 +205,14 @@ function msl_pmpro_check_required_profile_fields( &$errors, $update = null, &$us
 
 	// Add an error message for required fields that are empty.
 	foreach ( $required_user_fields as $field_name => $field ) {
-		if ( empty( $user->{$field_name} ) || empty( $_REQUEST[ $field_name ] ) ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- PMPro handles nonce on the profile form; this plugin only reads values for validation.
+		$request_value = isset( $_REQUEST[ $field_name ] ) ? $_REQUEST[ $field_name ] : '';
+		if ( empty( $user->{$field_name} ) || empty( $request_value ) ) {
 			// Base default comes from the same filter used for checkout/browser validation.
 			// We pass a sensible default template here and indicate the context as 'profile-edit'.
 			$base_default = apply_filters(
 				'msl_pmpro_required_field_message',
+				/* translators: %s: field label */
 				__( 'Please fill out the %s required field.', 'msl-form-validator' ),
 				$field_name,
 				null,

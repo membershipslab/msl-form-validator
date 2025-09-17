@@ -6,6 +6,7 @@
  *
  * @package MSL_Form_Validator
  */
+
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
