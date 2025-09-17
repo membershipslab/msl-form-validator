@@ -40,23 +40,37 @@ The ruleset lives in `phpcs.xml.dist`. CI runs PHPCS on pushes and PRs.
   - Optional: `screenshot-1.png`, `screenshot-2.png`, ...
 - The `Update WordPress.org assets` workflow pushes these files to the SVN `/assets/` directory when changed on `main`/`master`.
 
-## Releasing to WordPress.org
+## Releases
+
+### GitHub release
+Use semantic tags prefixed with `v` for GitHub releases:
+
+```
+git tag vX.Y.Z
+git push origin vX.Y.Z
+```
+
+Then create a GitHub Release from that tag with release notes. This will NOT deploy to WordPress.org.
+
+### WordPress.org deploy
+Deploy to WordPress.org using tags prefixed with `wporg-` (e.g., `wporg-0.1.0`). Before tagging:
+
 1. Ensure `readme.txt` has the correct `Stable tag` and `Tested up to`.
 2. Ensure `msl-form-validator.php` version header matches the release version.
 3. Commit all changes to `main`/`master` and push.
-4. Create a tag prefixed with `v` (e.g., `v0.1.0`) and push it:
+4. Tag and push with the `wporg-` prefix:
 
 ```
-git tag v0.1.0
-git push origin v0.1.0
+git tag wporg-X.Y.Z
+git push origin wporg-X.Y.Z
 ```
 
-This triggers the `Deploy to WordPress.org` workflow.
+This triggers `.github/workflows/deploy-to-wporg.yml`.
 
-### Required GitHub secrets
+### Required GitHub secrets (for WordPress.org deploy)
 Set repository secrets:
 - `SVN_USERNAME` (your WordPress.org username)
-- `SVN_PASSWORD` (your WordPress.org password or App Password)
+- `SVN_PASSWORD` (your WordPress.org password or an Application Password)
 
 ## Support
 For bugs and feature requests, please open an issue on GitHub.
