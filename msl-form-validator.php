@@ -13,7 +13,6 @@
  * Requires at least: 6.0
  * Tested up to: 6.8
  * Requires PHP: 7.4
- * Requires Plugins: paid-memberships-pro
  */
 
 // Exit if accessed directly.
