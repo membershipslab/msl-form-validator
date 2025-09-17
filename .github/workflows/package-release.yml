@@ -34,7 +34,8 @@ jobs:
       - name: Build zip via git archive (respects .gitattributes export-ignore)
         run: |
           mkdir -p dist
-          git archive --format=zip --worktree-attributes -o "dist/msl-form-validator-${{ steps.meta.outputs.version }}.zip" HEAD
+          # Build a generic filename and force-exclude .gitattributes for older tags.
+          git archive --format=zip --worktree-attributes -o "dist/msl-form-validator.zip" HEAD -- . ":(exclude).gitattributes"
           ls -lh dist
 
       - name: Upload zip to GitHub Release
@@ -42,6 +43,6 @@ jobs:
         with:
           tag_name: ${{ github.event_name == 'release' && github.event.release.tag_name || inputs.tag }}
           files: |
-            dist/msl-form-validator-${{ steps.meta.outputs.version }}.zip
+            dist/msl-form-validator.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
