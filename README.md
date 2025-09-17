@@ -4,6 +4,11 @@ Add native HTML5 validation and consistent, localized messages to Paid Membershi
 
 > Important: This plugin targets PMPro Custom User Fields only. It does not alter or validate PMPro’s default checkout fields like username, email, password, etc.
 
+## Download
+
+- Latest plugin zip: [msl-form-validator.zip](https://github.com/membershipslab/msl-form-validator/releases/latest/download/msl-form-validator.zip)
+- All releases: https://github.com/membershipslab/msl-form-validator/releases
+
 ## Features
 
 - Adds HTML5 validation attributes to required PMPro custom user fields on checkout:
