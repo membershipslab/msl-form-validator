@@ -30,3 +30,7 @@
 /CONTRIBUTING.md export-ignore
 /.gitignore export-ignore
 /TODO export-ignore
+
+# GitHub Linguist: hide dev tooling from language stats
+scripts/* linguist-vendored
+*.sh linguist-detectable=false
