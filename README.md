@@ -1,5 +1,11 @@
 # HTML Form Validator for PMPro
 
+<!-- Badges -->
+![PHPCS](https://github.com/membershipslab/msl-form-validator/actions/workflows/phpcs.yml/badge.svg)
+![Build Release Zip](https://github.com/membershipslab/msl-form-validator/actions/workflows/package-release.yml/badge.svg)
+[![Latest Release](https://img.shields.io/github/v/release/membershipslab/msl-form-validator)](https://github.com/membershipslab/msl-form-validator/releases/latest)
+[![License: GPL-2.0](https://img.shields.io/badge/license-GPL--2.0-blue.svg)](https://github.com/membershipslab/msl-form-validator/blob/main/license.txt)
+
 Add native HTML5 validation and consistent, localized messages to Paid Memberships Pro (PMPro) custom user fields.
 
 > Important: This plugin targets PMPro Custom User Fields only. It does not alter or validate PMPro’s default checkout fields like username, email, password, etc.
@@ -8,6 +14,16 @@ Add native HTML5 validation and consistent, localized messages to Paid Membershi
 
 - Latest plugin zip: [msl-form-validator.zip](https://github.com/membershipslab/msl-form-validator/releases/latest/download/msl-form-validator.zip)
 - All releases: https://github.com/membershipslab/msl-form-validator/releases
+
+## Quick Start
+
+1. Download the latest plugin zip from the link above.
+2. In your WordPress admin, go to `Plugins → Add New → Upload Plugin`.
+3. Choose the zip file and click `Install Now`, then `Activate`.
+4. Make sure the [Paid Memberships Pro](https://www.paidmembershipspro.com/) plugin is installed and active.
+5. Mark your PMPro custom user fields as `required`. The plugin will:
+   - Add native HTML5 validation at checkout (required + aria-required, with a clear message), and
+   - Validate required fields on the Member Profile Edit screen.
 
 ## Features
 
@@ -141,6 +157,27 @@ vendor/bin/phpcbf -q
 - Clean zips are built using `git archive` with `.gitattributes` export-ignore rules.
 - Local build: `scripts/package.sh` (output in `dist/`).
 - CI attaches the clean zip to GitHub Releases automatically (`.github/workflows/package-release.yml`).
+
+## Changelog
+
+- See all versions and release notes here: https://github.com/membershipslab/msl-form-validator/releases
+
+## Support
+
+- For bugs and feature requests: https://github.com/membershipslab/msl-form-validator/issues
+- Ensure that [Paid Memberships Pro](https://www.paidmembershipspro.com/) is installed and active.
+- Include your WordPress + PHP versions, PMPro version, and steps to reproduce.
+
+## FAQ
+
+- Does this validate PMPro’s default checkout fields (username, email, password)?
+  - No. This plugin targets PMPro Custom User Fields only.
+
+- How do I customize the validation messages?
+  - Use the filters `msl_pmpro_required_field_message` and `msl_pmpro_profile_edit_error_message`. See the “Filters” section above for examples.
+
+- How do I translate the plugin?
+  - A POT file is provided at `languages/msl-form-validator.pot`. Create a PO/MO for your locale and place it in `languages/`.
 
 ## License
 
