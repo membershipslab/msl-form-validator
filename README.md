@@ -2,8 +2,6 @@
 
 <!-- Badges -->
 ![PHPCS](https://github.com/membershipslab/msl-form-validator/actions/workflows/phpcs.yml/badge.svg)
-![Build Release Zip](https://github.com/membershipslab/msl-form-validator/actions/workflows/package-release.yml/badge.svg)
-[![Latest Release](https://img.shields.io/github/v/release/membershipslab/msl-form-validator)](https://github.com/membershipslab/msl-form-validator/releases/latest)
 [![License: GPL-2.0](https://img.shields.io/badge/license-GPL--2.0-blue.svg)](https://github.com/membershipslab/msl-form-validator/blob/main/license.txt)
 
 Add native HTML5 validation and consistent, localized messages to Paid Memberships Pro (PMPro) custom user fields.
