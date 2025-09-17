@@ -1,0 +1,37 @@
+name: Build Release Zip
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  build-zip:
+    name: Package plugin zip for release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine version from plugin header
+        id: meta
+        run: |
+          VERSION=$(grep -E "^\s*\*\s*Version:\s*" msl-form-validator.php | sed -E 's/^[^:]+:\s*([0-9A-Za-z\.-]+).*$/\1/')
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Build zip via git archive (respects .gitattributes export-ignore)
+        run: |
+          mkdir -p dist
+          git archive --format=zip --worktree-attributes -o "dist/msl-form-validator-${{ steps.meta.outputs.version }}.zip" HEAD
+          ls -lh dist
+
+      - name: Upload zip to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/msl-form-validator-${{ steps.meta.outputs.version }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

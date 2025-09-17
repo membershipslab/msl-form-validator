@@ -27,3 +27,5 @@
 /phpcs.xml.dist export-ignore
 /.distignore export-ignore
 /CONTRIBUTING.md export-ignore
+/.gitignore export-ignore
+/TODO export-ignore
