@@ -49,3 +49,23 @@ msgstr ""
 #, php-format
 msgid "Please fill out the %s required field."
 msgstr ""
+
+#: msl-form-validator.php
+msgid "%1$sHTML Form Validator for PMPro%2$s requires the Paid Memberships Pro plugin to be installed and active."
+msgstr ""
+
+#: msl-form-validator.php
+msgid "Please %1$sinstall/activate Paid Memberships Pro%2$s and try again."
+msgstr ""
+
+#: msl-form-validator.php
+msgid "Dependency missing"
+msgstr ""
+
+#: msl-form-validator.php
+msgid "Install PMPro"
+msgstr ""
+
+#: msl-form-validator.php
+msgid "Dismiss"
+msgstr ""

@@ -1,12 +1,11 @@
 === HTML Form Validator for PMPro ===
-Contributors: membershipslab
-Donate link: http://membershipslab.com/plugins/msl-form-validator/
-Tags: paid-memberships-pro, pmpro, form validation, html5, required fields, checkout
+Contributors: membershipslab, ipokkel
+Tags: paid-memberships-pro, pmpro, user fields, form validation, required fields
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 7.4
 Requires Plugins: paid-memberships-pro
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -65,7 +64,19 @@ Yes. It validates required fields and shows an admin-facing error if a required 
 4. Custom validation message via filter.
 5. Localized validation message.
 
+== Contribute ==
+
+Development, issue tracking, and pull requests are on GitHub:
+https://github.com/membershipslab/msl-form-validator
+
 == Changelog ==
+
+= 0.1.1 =
+- Bump plugin header version to 0.1.1.
+- Update translations and .pot file.
+- Improve dependency notice UX with dismiss and nonce handling.
+- Confirm compatibility with WordPress 6.8.
+- Documentation/readme tweaks.
 
 = 0.1.0 =
 - Initial public release.
@@ -73,6 +84,9 @@ Yes. It validates required fields and shows an admin-facing error if a required 
 - Adds profile edit required field checks with filterable messages.
 
 == Upgrade Notice ==
+
+= 0.1.1 =
+Minor improvements and translation updates. No breaking changes.
 
 = 0.1.0 =
 Initial public release with HTML5 validation and profile edit checks.

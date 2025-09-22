@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name: HTML Form Validator for PMPro User Fields.
- * Plugin URI: http://membershipslab.com/plugins/msl-form-validator/
+ * Plugin URI: https://membershipslab.com/plugins/msl-form-validator/
  * Description: Add HTML form validation for PMPro custom user fields.
- * Version: 0.1.0
+ * Version: 0.1.1
  * Author: Memberships Lab
- * Author URI: http://membershipslab.com
- * License: GPL2
- * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * Author URI: https://membershipslab.com
+ * License: GPLv2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: msl-form-validator
  * Domain Path: /languages
  * Requires at least: 6.0
@@ -69,19 +69,48 @@ function msl_form_validator_admin_dependency_notice() {
 	if ( function_exists( 'is_plugin_active' ) && is_plugin_active( 'paid-memberships-pro/paid-memberships-pro.php' ) ) {
 		return;
 	}
-	echo '<div class="notice notice-error"><p>' .
+	// Respect per-user dismissal of this notice.
+	if ( get_user_meta( get_current_user_id(), 'msl_fv_dismiss_pmpro_notice', true ) ) {
+		return;
+	}
+
+	// Build a nonce-protected dismiss URL.
+	$dismiss_url = wp_nonce_url( add_query_arg( 'msl_fv_dismiss_pmpro_notice', '1' ), 'msl_fv_dismiss_pmpro_notice' );
+
+	echo '<div class="notice notice-error is-dismissible"><p>' .
 		sprintf(
 			/* translators: 1: opening strong tag, 2: closing strong tag */
-			esc_html__( '%1$sHTML Form Validator for PMPro%2$s requires the Paid Memberships Pro plugin. Please install and activate it.', 'msl-form-validator' ),
+			esc_html__( '%1$sHTML Form Validator for PMPro%2$s requires the Paid Memberships Pro plugin to be installed and active.', 'msl-form-validator' ),
 			'<strong>',
 			'</strong>'
 		) .
 		' ' .
 		'<a href="' . esc_url( admin_url( 'plugin-install.php?s=paid%20memberships%20pro&tab=search&type=term' ) ) . '">' . esc_html__( 'Install PMPro', 'msl-form-validator' ) . '</a>' .
+		' &middot; ' .
+		'<a href="' . esc_url( $dismiss_url ) . '" class="button-link">' . esc_html__( 'Dismiss', 'msl-form-validator' ) . '</a>' .
 		'</p></div>';
 }
 
 add_action( 'admin_notices', 'msl_form_validator_admin_dependency_notice' );
+
+/**
+ * Handle dismissal of the PMPro dependency admin notice.
+ */
+function msl_form_validator_handle_dismiss_notice() {
+	// Only proceed for users who can activate plugins.
+	if ( ! current_user_can( 'activate_plugins' ) ) {
+		return;
+	}
+	// Check for dismissal request and verify nonce.
+	if ( isset( $_GET['msl_fv_dismiss_pmpro_notice'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		check_admin_referer( 'msl_fv_dismiss_pmpro_notice' );
+		update_user_meta( get_current_user_id(), 'msl_fv_dismiss_pmpro_notice', 1 );
+		// Redirect to remove query args.
+		wp_safe_redirect( remove_query_arg( array( 'msl_fv_dismiss_pmpro_notice', '_wpnonce' ) ) );
+		exit;
+	}
+}
+add_action( 'admin_init', 'msl_form_validator_handle_dismiss_notice' );
 
 /**
  * Load plugin textdomain for translations.
@@ -117,6 +146,8 @@ function msl_pmpro_add_user_field_required_attribute( $field, $where ) {
 
 		// Build a default, translatable message TEMPLATE. We'll sprintf the label later.
 		$field_label = ! empty( $field->label ) ? $field->label : __( 'this field', 'msl-form-validator' );
+		// Ensure the label is safe/plain text for interpolation into JS strings.
+		$field_label = wp_strip_all_tags( (string) $field_label );
 		/* translators: %s: field label */
 		$default_template = __( 'Please fill out the %s required field.', 'msl-form-validator' );
 
@@ -175,10 +206,12 @@ function msl_pmpro_check_required_profile_fields( &$errors, $update = null, &$us
 	$required_user_fields = array();
 
 	// Get the fields to check.
-	foreach ( $pmpro_user_fields as $field_group => $fields ) {
-		foreach ( $fields as $field ) {
-			if ( $field->profile && 'only_admin' !== $field->profile && $field->required ) {
-				$required_user_fields[ $field->name ] = array( $field->label, $field->levels );
+	if ( ! empty( $pmpro_user_fields ) && is_array( $pmpro_user_fields ) ) {
+		foreach ( $pmpro_user_fields as $field_group => $fields ) {
+			foreach ( $fields as $field ) {
+				if ( $field->profile && 'only_admin' !== $field->profile && $field->required ) {
+					$required_user_fields[ $field->name ] = array( $field->label, $field->levels );
+				}
 			}
 		}
 	}
@@ -206,7 +239,8 @@ function msl_pmpro_check_required_profile_fields( &$errors, $update = null, &$us
 	// Add an error message for required fields that are empty.
 	foreach ( $required_user_fields as $field_name => $field ) {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- PMPro handles nonce on the profile form; this plugin only reads values for validation.
-		$request_value = isset( $_REQUEST[ $field_name ] ) ? $_REQUEST[ $field_name ] : '';
+		$request_value_raw = isset( $_REQUEST[ $field_name ] ) ? $_REQUEST[ $field_name ] : '';
+		$request_value     = is_string( $request_value_raw ) ? sanitize_text_field( wp_unslash( $request_value_raw ) ) : '';
 		if ( empty( $user->{$field_name} ) || empty( $request_value ) ) {
 			// Base default comes from the same filter used for checkout/browser validation.
 			// We pass a sensible default template here and indicate the context as 'profile-edit'.

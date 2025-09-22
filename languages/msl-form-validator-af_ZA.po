@@ -49,3 +49,23 @@ msgstr "hierdie veld"
 #, php-format
 msgid "Please fill out the %s required field."
 msgstr "Vul asseblief die vereiste %s-veld in."
+
+#: msl-form-validator.php
+msgid "%1$sHTML Form Validator for PMPro%2$s requires the Paid Memberships Pro plugin to be installed and active."
+msgstr "HTML-vormvalideerder vir PMPro vereis dat die Paid Memberships Pro-inprop geïnstalleer en geaktiveer is."
+
+#: msl-form-validator.php
+msgid "Please %1$sinstall/activate Paid Memberships Pro%2$s and try again."
+msgstr "Installeer/aktiveer asseblief Paid Memberships Pro en probeer weer."
+
+#: msl-form-validator.php
+msgid "Dependency missing"
+msgstr "Afhanklikheid ontbreek"
+
+#: msl-form-validator.php
+msgid "Install PMPro"
+msgstr "Installeer PMPro"
+
+#: msl-form-validator.php
+msgid "Dismiss"
+msgstr "Verwerp"
