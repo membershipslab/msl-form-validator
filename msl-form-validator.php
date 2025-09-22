@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: HTML Form Validator for PMPro User Fields.
+ * Plugin Name: HTML Form Validator for PMPro
  * Plugin URI: https://membershipslab.com/plugins/msl-form-validator/
  * Description: Add HTML form validation for PMPro custom user fields.
  * Version: 0.1.1
@@ -111,14 +111,6 @@ function msl_form_validator_handle_dismiss_notice() {
 	}
 }
 add_action( 'admin_init', 'msl_form_validator_handle_dismiss_notice' );
-
-/**
- * Load plugin textdomain for translations.
- */
-function msl_form_validator_load_textdomain() {
-	load_plugin_textdomain( 'msl-form-validator', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-}
-add_action( 'plugins_loaded', 'msl_form_validator_load_textdomain' );
 
 /**
  * Add HTML5 validation attributes to required PMPro custom user fields on the checkout page.
@@ -239,8 +231,7 @@ function msl_pmpro_check_required_profile_fields( &$errors, $update = null, &$us
 	// Add an error message for required fields that are empty.
 	foreach ( $required_user_fields as $field_name => $field ) {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- PMPro handles nonce on the profile form; this plugin only reads values for validation.
-		$request_value_raw = isset( $_REQUEST[ $field_name ] ) ? $_REQUEST[ $field_name ] : '';
-		$request_value     = is_string( $request_value_raw ) ? sanitize_text_field( wp_unslash( $request_value_raw ) ) : '';
+		$request_value     = isset( $_REQUEST[ $field_name ] ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $field_name ] ) ) : '';
 		if ( empty( $user->{$field_name} ) || empty( $request_value ) ) {
 			// Base default comes from the same filter used for checkout/browser validation.
 			// We pass a sensible default template here and indicate the context as 'profile-edit'.
