@@ -5,7 +5,7 @@ Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 7.4
 Requires Plugins: paid-memberships-pro
-Stable tag: 0.1.1
+Stable tag: 0.1.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -71,6 +71,13 @@ https://github.com/membershipslab/msl-form-validator
 
 == Changelog ==
 
+= 0.1.2 =
+- Address Plugin Check compliance warnings.
+- Remove discouraged load_plugin_textdomain usage (WP 4.6+).
+- Align plugin header name with readme title.
+- Sanitize and unslash request input for profile edit validation.
+- Documentation/readme tweaks.
+
 = 0.1.1 =
 - Bump plugin header version to 0.1.1.
 - Update translations and .pot file.
@@ -84,6 +91,9 @@ https://github.com/membershipslab/msl-form-validator
 - Adds profile edit required field checks with filterable messages.
 
 == Upgrade Notice ==
+
+= 0.1.2 =
+Compliance fixes for WordPress Plugin Check. No breaking changes.
 
 = 0.1.1 =
 Minor improvements and translation updates. No breaking changes.

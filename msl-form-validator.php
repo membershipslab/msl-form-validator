@@ -3,7 +3,7 @@
  * Plugin Name: HTML Form Validator for PMPro
  * Plugin URI: https://membershipslab.com/plugins/msl-form-validator/
  * Description: Add HTML form validation for PMPro custom user fields.
- * Version: 0.1.1
+ * Version: 0.1.2
  * Author: Memberships Lab
  * Author URI: https://membershipslab.com
  * License: GPLv2 or later
