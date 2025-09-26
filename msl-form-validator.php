@@ -231,7 +231,7 @@ function msl_pmpro_check_required_profile_fields( &$errors, $update = null, &$us
 	// Add an error message for required fields that are empty.
 	foreach ( $required_user_fields as $field_name => $field ) {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- PMPro handles nonce on the profile form; this plugin only reads values for validation.
-		$request_value     = isset( $_REQUEST[ $field_name ] ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $field_name ] ) ) : '';
+		$request_value = isset( $_REQUEST[ $field_name ] ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $field_name ] ) ) : '';
 		if ( empty( $user->{$field_name} ) || empty( $request_value ) ) {
 			// Base default comes from the same filter used for checkout/browser validation.
 			// We pass a sensible default template here and indicate the context as 'profile-edit'.
