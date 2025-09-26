@@ -1,9 +1,5 @@
 # HTML Form Validator for PMPro
 
-<!-- Badges -->
-![PHPCS](https://github.com/membershipslab/msl-form-validator/actions/workflows/phpcs.yml/badge.svg)
-[![License: GPL-2.0](https://img.shields.io/badge/license-GPL--2.0-blue.svg)](https://github.com/membershipslab/msl-form-validator/blob/main/license.txt)
-
 Add native HTML5 validation and consistent, localized messages to Paid Memberships Pro (PMPro) custom user fields.
 
 > Important: This plugin targets PMPro Custom User Fields only. It does not alter or validate PMPro’s default checkout fields like username, email, password, etc.
