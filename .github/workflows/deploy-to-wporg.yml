@@ -14,11 +14,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Set VERSION to the tag name by default (e.g., "wporg-0.1.2").
+      - name: Set default VERSION from tag
+        run: echo "VERSION=${GITHUB_REF_NAME}" >> $GITHUB_ENV
+
+      # If the tag starts with "wporg-", strip the prefix so SVN tag becomes "0.1.2".
+      - name: Derive VERSION without wporg- prefix
+        if: startsWith(github.ref_name, 'wporg-')
+        run: echo "VERSION=${GITHUB_REF_NAME#wporg-}" >> $GITHUB_ENV
+
       - name: WordPress Plugin Deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
         with:
           slug: html-form-validator-for-pmpro
           assets-dir: .wordpress-org
         env:
+          VERSION: ${{ env.VERSION }}
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
