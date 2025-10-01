@@ -18,7 +18,7 @@ jobs:
       - name: WordPress.org Asset Update
         uses: 10up/action-wordpress-plugin-asset-update@stable
         with:
-          slug: msl-form-validator
+          slug: html-form-validator-for-pmpro
           assets-dir: .wordpress-org
         env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}

@@ -17,7 +17,7 @@ jobs:
       - name: WordPress Plugin Deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
         with:
-          slug: msl-form-validator
+          slug: html-form-validator-for-pmpro
           assets-dir: .wordpress-org
         env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
