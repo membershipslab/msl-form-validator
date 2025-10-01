@@ -23,6 +23,17 @@ jobs:
         if: startsWith(github.ref_name, 'wporg-')
         run: echo "VERSION=${GITHUB_REF_NAME#wporg-}" >> $GITHUB_ENV
 
+      - name: Verify SVN auth (no output)
+        run: |
+          svn --version
+          svn info https://plugins.svn.wordpress.org/html-form-validator-for-pmpro \
+            --non-interactive --no-auth-cache \
+            --username "$SVN_USERNAME" \
+            --password "$SVN_PASSWORD"
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+
       - name: WordPress Plugin Deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
         env:
